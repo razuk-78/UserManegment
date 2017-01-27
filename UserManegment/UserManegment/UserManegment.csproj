@@ -135,6 +135,7 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDB.cs" />
+    <Compile Include="Models\UserInOrg.cs" />
     <Compile Include="Models\WorkTitel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

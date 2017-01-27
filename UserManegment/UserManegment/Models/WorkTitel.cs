@@ -15,12 +15,10 @@ namespace UserManegment.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        public int UserId { get; set; }
+        public int UserInOrgId { get; set; }
 
-        public int OrgId { get; set; }
+    
 
-        public virtual ORG ORG { get; set; }
-
-        public virtual User User { get; set; }
+       
     }
 }

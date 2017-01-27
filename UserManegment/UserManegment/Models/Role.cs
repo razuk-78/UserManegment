@@ -11,8 +11,8 @@ namespace UserManegment.Models
     {
         public Role()
         {
-            ORG = new HashSet<ORG>();
-            User = new HashSet<User>();
+
+            UserInOrg = new HashSet<UserInOrg>();
         }
         public int Id { get; set; }
 
@@ -23,7 +23,7 @@ namespace UserManegment.Models
         public int? Create { get; set; }
 
         public int? Delete { get; set; }
-        public virtual ICollection<User> User { get; set; }
-        public virtual ICollection<ORG> ORG { get; set; }
+        public virtual ICollection<UserInOrg> UserInOrg { get; set; }
+        
     }
 }

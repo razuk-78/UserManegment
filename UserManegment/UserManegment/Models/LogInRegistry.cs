@@ -20,8 +20,8 @@ namespace UserManegment.Models
 
         public DateTime? LogOutTime { get; set; }
 
-        public virtual ORG ORG { get; set; }
+  
 
-        public virtual User User { get; set; }
+        public virtual User UserInOrg { get; set; }
     }
 }

@@ -13,10 +13,7 @@ namespace UserManegment.Models
         public ORG()
         {
             
-            User = new HashSet<User>();
-            LogInRegistry = new HashSet<LogInRegistry>();
-            WorkTitel = new HashSet<WorkTitel>();
-            Role = new HashSet<Role>();
+           
         }
 
         public int Id { get; set; }
@@ -25,12 +22,7 @@ namespace UserManegment.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LogInRegistry> LogInRegistry { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkTitel> WorkTitel { get; set; }
-        public virtual ICollection<User> User { get; set; }
-        public virtual ICollection<Role> Role { get; set; }
+  
+        
     }
 }

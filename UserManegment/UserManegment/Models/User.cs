@@ -12,10 +12,7 @@ namespace UserManegment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            LogInRegistry = new HashSet<LogInRegistry>();
-            WorkTitel = new HashSet<WorkTitel>();
-            ORG = new HashSet<ORG>();
-            Role = new HashSet<Role>();
+          
         }
 
         public int Id { get; set; }
@@ -54,11 +51,6 @@ namespace UserManegment.Models
         [StringLength(10)]
         public string Category { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LogInRegistry> LogInRegistry { get; set; }
-        public virtual ICollection<ORG> ORG { get; set; }
-        public virtual ICollection<Role> Role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkTitel> WorkTitel { get; set; }
+       
     }
 }
