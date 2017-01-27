@@ -12,7 +12,7 @@ namespace UserManegment.Models
         }
         public int Id { get; set; }
         public int UserId { get; set; }
-
+        public int WorkTitelId { get; set; }
         public int OrgId { get; set; }
         public int RoleId { get; set; }
 

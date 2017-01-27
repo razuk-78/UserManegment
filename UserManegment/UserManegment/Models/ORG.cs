@@ -10,11 +10,7 @@ namespace UserManegment.Models
     public partial class ORG
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ORG()
-        {
-            
-           
-        }
+       
 
         public int Id { get; set; }
 
