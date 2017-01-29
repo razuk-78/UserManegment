@@ -9,23 +9,30 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using UserManegment.Models;
-
+using UserManegment.Security;
 namespace UserManegment.Controllers
 {
     public class UsersController : ApiController
     {
         private UserDB db = new UserDB();
 
-        //GET: api/Users
-        public IQueryable<User> GetUser()
+        // GET: api/Users
+        
+        public IHttpActionResult Getme()
         {
-          
-            
-            return db.User;
+
+            return Ok("hey iam null");
         }
-      
+       
+        public IHttpActionResult GetUser(int role)
+        {
+            
+            return Ok("hey");
+        }
+
+        // GET: api/Users/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+        public IHttpActionResult PostUser(int id)
         {
             User user = db.User.Find(id);
             if (user == null)
@@ -82,7 +89,7 @@ namespace UserManegment.Controllers
 
             db.User.Add(user);
             db.SaveChanges();
-
+            
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 

@@ -20,29 +20,7 @@ namespace UserManegment.Models
         public virtual DbSet<UserInOrg> UserInOrg { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ORG>()
-                .HasMany(e => e.LogInRegistry)
-                .WithRequired(e => e.ORG)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ORG>()
-                .HasMany(e => e.WorkTitel)
-                .WithRequired(e => e.ORG)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Category)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.LogInRegistry)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.WorkTitel)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
+           
         }
     }
 }

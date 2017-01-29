@@ -11,17 +11,12 @@ namespace UserManegment.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-
-        public int UserId { get; set; }
-
-        public int OrgId { get; set; }
-
+        public int UserInOrgId;
+        
         public DateTime LogInTime { get; set; }
 
         public DateTime? LogOutTime { get; set; }
-
-  
-
-        public virtual User UserInOrg { get; set; }
+        
+        public virtual UserInOrg UserInOrg { get; set; }
     }
 }

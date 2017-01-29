@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using UserManegment.Security;
 
 namespace UserManegment
 {
@@ -13,12 +14,14 @@ namespace UserManegment
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+           
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
+
                 defaults: new { id = RouteParameter.Optional }
             );
+            //config.Filters.Add(new Lock());
         }
     }
 }

@@ -4,17 +4,22 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using UserManegment.Security;
 
 namespace UserManegment.Controllers
 {
     public class TestController : ApiController
     {
      
-        //public IHttpActionResult GetUser()
-        //{
+       public IHttpActionResult Getaccept()
+        {
+            
+            return Ok("you have  access");
+        }
+        public IHttpActionResult Postreject()
+        {
 
-        //    return Ok(new User { Address = "sfsd", Id = 1, FirstName = "razzouk", LastName = "hhh", City = "khgajhg", Phone = "234234", PassWord = "asdasd" ,ORG = { new ORG { Name = "cybercom" }, new ORG { Name = "sabb" } } });
-        //}
-
+            return Ok("you have no access");
+        }
     }
 }

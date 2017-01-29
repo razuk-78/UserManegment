@@ -5,25 +5,18 @@ namespace UserManegment.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    using UserManegment.Security;
     [Table("Role")]
     public partial class Role
     {
-        public Role()
-        {
-
-            UserInOrg = new HashSet<UserInOrg>();
-        }
+       
         public int Id { get; set; }
+        public int UserInOrgId { get; set; }
+        [Column(TypeName="int")]
+        public RoleEnum Type { get; set; }
+        public virtual UserInOrg UserInOrg { get; set; }
 
-        public int? Read { get; set; }
 
-        public int? Write { get; set; }
 
-        public int? Create { get; set; }
-
-        public int? Delete { get; set; }
-        public virtual ICollection<UserInOrg> UserInOrg { get; set; }
-        
     }
 }
