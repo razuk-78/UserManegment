@@ -10,7 +10,7 @@ namespace UserManegment.Security
 
        
         public User User { get; set; }
-        public WorkTitel WorkTitel { get; set; }
+        public List<WorkTitel> WorkTitel { get; set; }
         public List<Role> Role { get; set; }
         public List<LogInRegistry> LogInRegistry { get; set; }
     }
@@ -20,15 +20,15 @@ namespace UserManegment.Security
         public OrgUsersDetails(int _OrgId, UserDB _Db)
         {
             this.Org = _Db.ORG.First(x => x.Id == _OrgId);
-            List<int> UsersId = _Db.UserInOrg.Where(x => x.UserId == this.User.Id).Select(x => x.OrgId).ToList();
+            List<int> UsersId = _Db.UserInOrg.Where(x => x.OrgId == _OrgId).Select(x => x.OrgId).ToList();
 
-            foreach (int i in UsersId)
+            foreach (int UserId in UsersId)
             {
                 Users u = new Users();
-                u.User = _Db.User.First(x => x.Id == i);
-                u.Role = _Db.Role.Where(x => x.UserInOrg.UserId == i && x.UserInOrg.OrgId == this.Org.Id).ToList();
-                u.WorkTitel = _Db.WorkTitel.First(x => x.UserInOrg.UserId == i && x.UserInOrg.OrgId == this.Org.Id);
-                u.LogInRegistry = _Db.LogInRegistry.Where(x => x.UserInOrg.UserId == i && x.UserInOrg.OrgId == this.Org.Id).ToList();
+                u.User = _Db.User.First(x => x.Id == UserId);
+                u.Role = _Db.Role.Where(x => x.UserInOrg.UserId == UserId && x.UserInOrg.OrgId == this.Org.Id).ToList();
+                _Db.WorkTitelPointer.Where(x => x.UserInOrg.UserId == UserId && x.UserInOrg.OrgId == this.Org.Id).Select(x => x.Id).ToList().ForEach((x)=>u.WorkTitel.Add(_Db.WorkTitel.First(z=>z.Id==x)));
+                u.LogInRegistry = _Db.LogInRegistry.Where(x => x.UserInOrg.UserId == UserId && x.UserInOrg.OrgId == this.Org.Id).ToList();
 
                 this.Users.Add(u);
             }

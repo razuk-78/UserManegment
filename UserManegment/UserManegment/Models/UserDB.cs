@@ -17,6 +17,7 @@ namespace UserManegment.Models
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<WorkTitel> WorkTitel { get; set; }
+        public virtual DbSet<WorkTitelPointer> WorkTitelPointer { get; set; }
         public virtual DbSet<UserInOrg> UserInOrg { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
