@@ -15,7 +15,7 @@ namespace UserManegment.Models
         public int UserId { get; set; }
         public int OrgId { get; set; }
         
-        public virtual ICollection<WorkTitelPointer> WorkTitelPointer { get; set; }
+        public virtual ICollection<WorkTitel> WorkTitel { get; set; }
         public virtual ICollection<LogInRegistry> LogInRegistrys { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }

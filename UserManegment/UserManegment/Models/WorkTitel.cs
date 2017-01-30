@@ -15,9 +15,10 @@ namespace UserManegment.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        
+        public int UserInOrgId { get; set; }
+        public virtual UserInOrg UserInOrg{ get; set; }
+       
 
-        public virtual ICollection<WorkTitelPointer> WorkTitelPointer { get; set; }
 
     }
 }

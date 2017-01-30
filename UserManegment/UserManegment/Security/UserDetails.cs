@@ -11,14 +11,14 @@ namespace UserManegment.Security
    
         public UserDetails() { }
         public ORG Org { get; set; }
-        public L<WorkTitel> WorkTitel{get;  set;}
+        public WorkTitel WorkTitel{get;  set;}
         public List<Role> Role { get;  set; }
         public List<LogInRegistry> LogInRegistry { get;  set; }
     }
     //this class will collect all details belong to a specific user in all orgs
-  public  class UserInAllOrgs
+  public  class UserInAllOgrs
     {
-        public UserInAllOrgs(int _UserId,UserDB _Db)
+        public UserInAllOgrs(int _UserId,UserDB _Db)
         {
             this.User = _Db.User.First(x => x.Id == _UserId);
             List<int> OrgIds = _Db.UserInOrg.Where(x => x.UserId == this.User.Id).Select(x => x.OrgId).ToList();
@@ -28,7 +28,7 @@ namespace UserManegment.Security
                 UserDetails u = new UserDetails();
                 u.Org= _Db.ORG.First(x => x.Id == i);
                 u.Role = _Db.Role.Where(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i).ToList();
-                u.WorkTitel = _Db.W.First(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i);
+                u.WorkTitel = _Db.WorkTitel.First(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i);
                 u.LogInRegistry = _Db.LogInRegistry.Where(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i).ToList();
 
                 this.UserDetails.Add(u);

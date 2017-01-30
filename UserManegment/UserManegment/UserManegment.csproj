@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Accountent.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserMangementController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -134,7 +133,6 @@
     </Compile>
     <Compile Include="Models\LogInRegistry.cs" />
     <Compile Include="Models\ORG.cs" />
-    <Compile Include="Models\WorkTitelPointer.cs" />
     <Compile Include="Security\OrgsUsersDetails.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Security\RoleEnum.cs" />

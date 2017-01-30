@@ -7,6 +7,6 @@ namespace UserManegment.Security
 {
   public enum RoleEnum
     {
-        Non,Read,Write,Create,Accountent
+        Non,Read,Write,Create,Delete
     }
 }
