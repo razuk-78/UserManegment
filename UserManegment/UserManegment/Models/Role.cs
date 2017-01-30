@@ -12,7 +12,7 @@ namespace UserManegment.Models
        
         public int Id { get; set; }
         public int UserInOrgId { get; set; }
-        [Column(TypeName="int")]
+        [Column(TypeName="varchar(50)")]
         public RoleEnum Type { get; set; }
         public virtual UserInOrg UserInOrg { get; set; }
 

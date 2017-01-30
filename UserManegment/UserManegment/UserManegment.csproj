@@ -143,6 +143,8 @@
     <Compile Include="Security\Lock.cs" />
     <Compile Include="Security\OrgsUsersDetails.cs" />
     <Compile Include="Security\RoleEnum.cs" />
+    <Compile Include="Security\SearchBasedWorkTitel.cs" />
+    <Compile Include="Security\SearchUsersBasedRole.cs" />
     <Compile Include="Security\UserDetails.cs" />
   </ItemGroup>
   <ItemGroup>

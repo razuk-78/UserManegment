@@ -16,7 +16,7 @@ namespace UserManegment.Security
     }
     public class OrgUsersDetails
     {
-
+        //All users + Roles + Worktitle + LogIN
         public OrgUsersDetails(int _OrgId, UserDB _Db)
         {
             this.Org = _Db.ORG.First(x => x.Id == _OrgId);

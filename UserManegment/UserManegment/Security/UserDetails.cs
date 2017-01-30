@@ -11,7 +11,7 @@ namespace UserManegment.Security
    
         public UserDetails() { }
         public ORG Org { get; set; }
-        public L<WorkTitel> WorkTitel{get;  set;}
+        public List<WorkTitel> WorkTitel{get;  set;}
         public List<Role> Role { get;  set; }
         public List<LogInRegistry> LogInRegistry { get;  set; }
     }
@@ -28,7 +28,7 @@ namespace UserManegment.Security
                 UserDetails u = new UserDetails();
                 u.Org= _Db.ORG.First(x => x.Id == i);
                 u.Role = _Db.Role.Where(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i).ToList();
-                u.WorkTitel = _Db.W.First(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i);
+                _Db.WorkTitelPointer.Where(x => x.UserInOrg.OrgId == i && x.UserInOrg.UserId == this.User.Id).Select(x => x.Id).ToList().ForEach((x) => u.WorkTitel.Add(_Db.WorkTitel.First(z => z.Id == x)));
                 u.LogInRegistry = _Db.LogInRegistry.Where(x => x.UserInOrg.UserId == this.User.Id && x.UserInOrg.OrgId == i).ToList();
 
                 this.UserDetails.Add(u);
