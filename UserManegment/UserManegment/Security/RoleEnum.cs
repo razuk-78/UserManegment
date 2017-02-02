@@ -5,8 +5,8 @@ using System.Web;
 
 namespace UserManegment.Security
 {
-  public enum RoleEnum
+  public class RoleTypes
     {
-        Non,Read,Write,Create,Accountent
+        public static  String Write= "Write"; public static  String read = "Write";
     }
 }
