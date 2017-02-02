@@ -20,14 +20,14 @@ namespace UserManegment.Controllers
         
         public IHttpActionResult Getme()
         {
-
-            return Ok("hey iam null");
+           
+            return Ok(db.User.ToList());
         }
        
-        public IHttpActionResult GetUser(int role)
+        public IHttpActionResult GetUser(int userid)
         {
-            
-            return Ok("hey");
+            SearchUserInAllOrgs u = new SearchUserInAllOrgs(userid, db);
+            return Ok(u.UserDetails.ToList());
         }
 
         // GET: api/Users/5

@@ -20,7 +20,7 @@ namespace UserManegment.Security
         public SearchOrgAllUsersDetails(int _OrgId, UserDB _Db)
         {
             this.Org = _Db.ORG.First(x => x.Id == _OrgId);
-            List<int> UsersId = _Db.UserInOrg.Where(x => x.OrgId == _OrgId).Select(x => x.OrgId).ToList();
+            List<int> UsersId = _Db.UserInOrg.Where(x => x.OrgId == _OrgId).Select(x => x.UserId).ToList();
 
             foreach (int UserId in UsersId)
             {

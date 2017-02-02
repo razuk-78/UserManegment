@@ -8,11 +8,11 @@ namespace UserManegment.Security
 {
     public class UsersBaesdRoles
     {
-        public ORG Org { get; set; }
+       public ORG Org { get; set; }
         public User User { get; set; }
-        public List<Role> Role { get; set; }
+        //public List<Role> Role { get; set; }
         public UserInOrg UserInOrg { get; set; }
-
+        public List<WorkTitel> WorkTitels { get; set; }
         public List<LogInRegistry> LogInRegistry { get; set; }
     }
     public class SearchUsersBasedRole
@@ -20,12 +20,19 @@ namespace UserManegment.Security
 
         public List<UsersBaesdRoles> SearchAllUsersInOrg(int OrgId,String RollType,UserDB _db)
         {
+            
             List<UsersBaesdRoles> lu = new List<UsersBaesdRoles>();
             foreach (int useringorgid in  _db.UserInOrg.Where(x => x.OrgId == OrgId).Select(x => x.Id).ToList())
             {
+                UsersBaesdRoles user = new UsersBaesdRoles();
+        List<WorkTitel> WorkTitels = new List<WorkTitel>();
+
                 if (_db.Role.FirstOrDefault(x => x.UserInOrg.Id == useringorgid) != null)
                 {
-                    lu.Add(new UsersBaesdRoles { User = _db.User.First(z => z.Id == _db.Role.First(x => x.UserInOrg.Id == useringorgid && x.Type == RollType).UserInOrg.UserId) ,Org=_db.ORG.First(z=>z.Id==OrgId),LogInRegistry=_db.LogInRegistry.Where(z=>z.UserInOrg.Id==useringorgid).ToList(),});
+                    user.User = _db.User.First(z => z.Id == _db.Role.First(x => x.UserInOrg.Id == useringorgid && x.Type == RollType).UserInOrg.UserId);
+                    user.LogInRegistry = _db.LogInRegistry.Where(z => z.UserInOrgId == useringorgid).ToList();
+                    _db.WorkTitelPointer.Where(x => x.userInOrgId == useringorgid).ToList().ForEach(x => WorkTitels.Add(x.WorkTitel));
+                    user.WorkTitels = WorkTitels;
                 }
                  
             }
@@ -37,18 +44,20 @@ namespace UserManegment.Security
         
             return lu;
         }
-        public List<UsersBaesdRoles> SearchAllUsersBasedJobb(int WorkTitelId, int OrgId, UserDB _db)
+        public List<UsersBaesdRoles> SearchAllUsersBasedJobb(String RoleType, UserDB _db)
         {
             List<UsersBaesdRoles> lu = new List<UsersBaesdRoles>();
-
-            foreach (WorkTitelPointer pointer in _db.WorkTitelPointer.Where(x => x.WorkTitelId == WorkTitelId && x.UserInOrg.OrgId == OrgId).ToList())
+           
+            foreach ( UserInOrg userinorg in _db.Role.Where(x => x.Type == RoleType).Select(x => x.UserInOrg).ToList())
             {
-                var u = new UsersBaedWorks();
-                u.User = _db.User.First(x => x.Id == pointer.UserInOrg.UserId);
-                u.Org = _db.ORG.First(x => x.Id == OrgId);
-                u.Role = _db.Role.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
-                u.LogInRegistry = _db.LogInRegistry.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
-                lu.Add(u);
+                UsersBaesdRoles user = new UsersBaesdRoles();
+                List<WorkTitel> WorkTitels = new List<WorkTitel>();
+                user.Org = _db.ORG.First(x => x.Id == userinorg.OrgId);
+                user.User = _db.User.First(x => x.Id == userinorg.UserId);
+                _db.WorkTitelPointer.Where(x => x.userInOrgId == userinorg.Id).ToList().ForEach(x => WorkTitels.Add(x.WorkTitel));
+                user.WorkTitels = WorkTitels;
+                user.LogInRegistry = _db.LogInRegistry.Where(z => z.UserInOrgId == userinorg.Id).ToList();
+                lu.Add(user);
             }
             return lu;
         }
