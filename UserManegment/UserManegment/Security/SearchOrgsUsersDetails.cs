@@ -6,9 +6,11 @@ using UserManegment.Models;
 namespace UserManegment.Security
 {
     public class UsersInOrg
-    {
-
-       
+    {     public UsersInOrg()
+        {
+            WorkTitel = new List<Models.WorkTitel>();Role = new List<Models.Role>();User = new User();
+            LogInRegistry = new List<Models.LogInRegistry>();
+        }
         public User User { get; set; }
         public List<WorkTitel> WorkTitel { get; set; }
         public List<Role> Role { get; set; }
@@ -21,7 +23,7 @@ namespace UserManegment.Security
         {
             this.Org = _Db.ORG.First(x => x.Id == _OrgId);
             List<int> UsersId = _Db.UserInOrg.Where(x => x.OrgId == _OrgId).Select(x => x.UserId).ToList();
-
+            this.Users = new List<UsersInOrg>();
             foreach (int UserId in UsersId)
             {
                 UsersInOrg u = new UsersInOrg();

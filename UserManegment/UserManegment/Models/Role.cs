@@ -13,7 +13,7 @@ namespace UserManegment.Models
         public int Id { get; set; }
         public int UserInOrgId { get; set; }
        
-        public String Type { get; set; }
+        public string Type { get; set; }
         public virtual UserInOrg UserInOrg { get; set; }
 
 

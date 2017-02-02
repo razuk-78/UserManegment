@@ -8,10 +8,13 @@ namespace UserManegment.Security
 {
     public class UsersBaesdRoles
     {
+        public UsersBaesdRoles() {
+            WorkTitels = new List<Models.WorkTitel>();
+            User = new User();
+            LogInRegistry = new List<Models.LogInRegistry>();
+        }
        public ORG Org { get; set; }
         public User User { get; set; }
-        //public List<Role> Role { get; set; }
-        public UserInOrg UserInOrg { get; set; }
         public List<WorkTitel> WorkTitels { get; set; }
         public List<LogInRegistry> LogInRegistry { get; set; }
     }
@@ -35,13 +38,7 @@ namespace UserManegment.Security
                     user.WorkTitels = WorkTitels;
                 }
                  
-            }
-
-          
-
-            
-
-        
+            }    
             return lu;
         }
         public List<UsersBaesdRoles> SearchAllUsersBasedJobb(String RoleType, UserDB _db)
@@ -56,7 +53,10 @@ namespace UserManegment.Security
                 user.User = _db.User.First(x => x.Id == userinorg.UserId);
                 _db.WorkTitelPointer.Where(x => x.userInOrgId == userinorg.Id).ToList().ForEach(x => WorkTitels.Add(x.WorkTitel));
                 user.WorkTitels = WorkTitels;
-                user.LogInRegistry = _db.LogInRegistry.Where(z => z.UserInOrgId == userinorg.Id).ToList();
+                if (_db.LogInRegistry.ToList().Count>0)
+                {
+                    user.LogInRegistry = _db.LogInRegistry.Where(z => z.UserInOrgId == userinorg.Id).ToList();
+                }
                 lu.Add(user);
             }
             return lu;

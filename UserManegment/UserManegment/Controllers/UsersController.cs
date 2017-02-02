@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using UserManegment.Models;
 using UserManegment.Security;
+using System.Web.Script.Serialization;
 namespace UserManegment.Controllers
 {
     public class UsersController : ApiController
@@ -24,10 +25,15 @@ namespace UserManegment.Controllers
             return Ok(db.User.ToList());
         }
        
-        public IHttpActionResult GetUser(int userid)
+        //public IHttpActionResult GetUser(int workId,int orgId)
+        //{
+        //    SearchBasedWorkTitel u = new SearchBasedWorkTitel();          
+        //    return Ok(u.SearchAllUsersBasedJobb(workId,orgId,db) );
+        //}
+        public IHttpActionResult GetUser(string roltype,int orgId)
         {
-            SearchUserInAllOrgs u = new SearchUserInAllOrgs(userid, db);
-            return Ok(u.UserDetails.ToList());
+            SearchUsersBasedRole u = new SearchUsersBasedRole();
+            return Ok(u.SearchAllUsersInOrg(orgId,roltype,db));
         }
 
         // GET: api/Users/5

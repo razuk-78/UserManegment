@@ -24,6 +24,10 @@ namespace UserManegment.Security
   public  class SearchUserInAllOrgs
     {
        public  List<UserInAllOrgs> UserDetails;
+        public SearchUserInAllOrgs() {
+         
+            this.UserDetails = new List<UserInAllOrgs>();
+        }
         public SearchUserInAllOrgs(int _UserId,UserDB _Db)
         {
             this.User = _Db.User.First(x => x.Id == _UserId);
@@ -41,9 +45,9 @@ namespace UserManegment.Security
             }
             
         }
-        public User User
+        User User
         {
-            get;private set;
+            get; set;
         }
         
     }
