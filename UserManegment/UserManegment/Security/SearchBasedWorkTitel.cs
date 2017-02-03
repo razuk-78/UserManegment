@@ -8,11 +8,15 @@ namespace UserManegment.Security
     public class UsersBasedWorks
     {
 
-        
+        public UsersBasedWorks()
+        {
+            Roles = new List<Models.Role>();
+            LogInRegistrys = new List<Models.LogInRegistry>();
+        }
         public ORG Org { get; set; }
         public User User { get; set; }
-        public List<Role> Role { get; set; }
-        public List<LogInRegistry> LogInRegistry { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<LogInRegistry> LogInRegistrys { get; set; }
     }
     public class SearchBasedWorkTitel
     {
@@ -26,8 +30,14 @@ namespace UserManegment.Security
                 var u = new UsersBasedWorks();
                 u.User= _db.User.First(x => x.Id == pointer.UserInOrg.UserId);
                 u.Org = _db.ORG.First(x => x.Id == pointer.UserInOrg.OrgId);
-                u.Role = _db.Role.Where(x => x.UserInOrg.OrgId == u.Org.Id && x.UserInOrg.UserId == u.User.Id).ToList();
-                u.LogInRegistry= _db.LogInRegistry.Where(x => x.UserInOrg.OrgId == u.Org.Id && x.UserInOrg.UserId == u.User.Id).ToList();
+                foreach(Role r in _db.Role.Where(x => x.UserInOrg.OrgId == u.Org.Id && x.UserInOrg.UserId == u.User.Id).ToList())
+                {
+                    u.Roles.Add(r);
+                }
+                foreach(LogInRegistry l in _db.LogInRegistry.Where(x => x.UserInOrg.OrgId == u.Org.Id && x.UserInOrg.UserId == u.User.Id).ToList())
+                {
+                    u.LogInRegistrys.Add(l);
+                }
                 lu.Add(u);
             }
 
@@ -44,8 +54,8 @@ namespace UserManegment.Security
                 var u = new UsersBasedWorks();
                 u.User = _db.User.First(x => x.Id == pointer.UserInOrg.UserId);
                 u.Org = _db.ORG.First(x => x.Id == OrgId);
-                u.Role = _db.Role.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
-                u.LogInRegistry = _db.LogInRegistry.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
+                u.Roles = _db.Role.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
+                u.LogInRegistrys = _db.LogInRegistry.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
                 lu.Add(u);
             }
             return lu;

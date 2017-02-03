@@ -125,10 +125,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\UserMangementController.cs" />
+    <Compile Include="Controllers\ORGsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\WriteUserDetailsController.cs" />
+    <Compile Include="Controllers\WorkTitelsController.cs" />
+    <Compile Include="Controllers\WriteUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

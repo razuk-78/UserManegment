@@ -18,6 +18,10 @@ namespace UserManegment.Security
         public static void Write(ReceivedUserDeteails user,UserDB _db)
         {
             UserInOrg userinorg;
+            if(_db.User.FirstOrDefault(x=>x.Id==user.UserId)==null)
+            {
+                throw new Exception("the user is not exist");
+            }
             if ((userinorg = _db.UserInOrg.FirstOrDefault(x => x.UserId == user.UserId && x.OrgId == user.OrgId)) == null)
             {
                 _db.UserInOrg.Add(new UserInOrg { OrgId = user.OrgId, UserId = user.UserId });
@@ -27,14 +31,14 @@ namespace UserManegment.Security
             _db.SaveChanges();
             user.WorkTitelsIds.ForEach(z => _db.UserInOrg.First(x => x.Id == userinorg.Id).WorkTitelPointer.Add(new WorkTitelPointer { WorkTitelId = z }));
             _db.SaveChanges();
-
-
             }else
             {
                 throw new Exception("the user alredy exist");
             }
             
         }
+
+
         public static void Edite(ReceivedUserDeteails user, UserDB _db)
         {
             UserInOrg userinorg;

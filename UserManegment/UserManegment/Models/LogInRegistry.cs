@@ -11,6 +11,7 @@ namespace UserManegment.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+        // should be changed to property
         public int UserInOrgId;
         
         public DateTime LogInTime { get; set; }
