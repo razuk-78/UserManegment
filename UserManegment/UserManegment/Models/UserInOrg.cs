@@ -8,6 +8,7 @@ namespace UserManegment.Models
     public class UserInOrg
     {
         public UserInOrg() {
+            WorkTitelPointer = new HashSet<WorkTitelPointer>();
             LogInRegistrys = new HashSet<LogInRegistry>();
             Roles = new HashSet<Role>();
         }

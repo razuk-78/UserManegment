@@ -125,9 +125,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\UserMangementController.cs" />
+    <Compile Include="Controllers\ORGsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WorkTitelsController.cs" />
+    <Compile Include="Controllers\WriteUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -141,11 +143,12 @@
     <Compile Include="Models\WorkTitelPointer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Lock.cs" />
+    <Compile Include="Security\RoleName.cs" />
     <Compile Include="Security\SearchOrgsUsersDetails.cs" />
-    <Compile Include="Security\RoleNames.cs" />
     <Compile Include="Security\SearchBasedWorkTitel.cs" />
     <Compile Include="Security\SearchUsersBasedRole.cs" />
     <Compile Include="Security\SearchUserInAllOrgs.cs" />
+    <Compile Include="Security\WriteUserDeteails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

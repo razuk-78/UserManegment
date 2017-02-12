@@ -10,33 +10,29 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using UserManegment.Models;
 using UserManegment.Security;
-using System.Web.Script.Serialization;
 namespace UserManegment.Controllers
 {
-    public class UsersController : ApiController
+    public class WriteUserController : ApiController
     {
         private UserDB db = new UserDB();
 
-        // GET: api/Users
-        
-        public IHttpActionResult Getme()
+        // GET: api/WriteUser
+        // 73char {"userid":5,"orgid":1,"rolestype":["read","write"],"worktitelsIds":[1,2]}
+        #region FiddlerContent
+        // User-Agent: Fiddler
+        //  Host: localhost:62119
+        //Content-type: application/json
+        //Content-Length: 73
+        //Accept: Application/json 
+        #endregion
+
+        public void Post([FromBody] ReceivedUserDeteails u)
         {
-           
-            return Ok(db.User.ToList());
-        }
-       
-        //public IHttpActionResult GetUser(int workId,int orgId)
-        //{
-        //    SearchBasedWorkTitel u = new SearchBasedWorkTitel();          
-        //    return Ok(u.SearchAllUsersBasedJobb(workId,orgId,db) );
-        //}
-        public IHttpActionResult GetUser(int userid)
-        {
-            SearchUserInAllOrgs u = new SearchUserInAllOrgs();
-            return Ok(u.UserInAllOrgs(userid,db));
+
+         WriteReceivedUserDeteails.Write(u, db);
+            //return Ok(new ReceivedUserDeteails { OrgId = 1, UserId = 1, RolesType = new List<string> { "read", "write" }, WorkTitelsIds = new List<int> { 1, 2 } });
         }
 
-  
         protected override void Dispose(bool disposing)
         {
             if (disposing)

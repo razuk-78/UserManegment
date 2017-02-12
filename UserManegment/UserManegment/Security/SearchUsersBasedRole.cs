@@ -8,11 +8,14 @@ namespace UserManegment.Security
 {
     public class UsersBaesdRoles
     {
-        public ORG Org { get; set; }
+        public UsersBaesdRoles() {
+            WorkTitels = new List<Models.WorkTitel>();
+            User = new User();
+            LogInRegistry = new List<Models.LogInRegistry>();
+        }
+       public ORG Org { get; set; }
         public User User { get; set; }
-        public List<Role> Role { get; set; }
-        public UserInOrg UserInOrg { get; set; }
-
+        public List<WorkTitel> WorkTitels { get; set; }
         public List<LogInRegistry> LogInRegistry { get; set; }
     }
     public class SearchUsersBasedRole
@@ -20,34 +23,47 @@ namespace UserManegment.Security
 
         public List<UsersBaesdRoles> SearchAllUsersInOrg(int OrgId,String RollType,UserDB _db)
         {
-            List<UsersBaesdRoles> lu = new List<UsersBaesdRoles>();
-            foreach (int useringorgid in  _db.UserInOrg.Where(x => x.OrgId == OrgId).Select(x => x.Id).ToList())
-            {
-                if (_db.Role.FirstOrDefault(x => x.UserInOrg.Id == useringorgid) != null)
-                {
-                    lu.Add(new UsersBaesdRoles { User = _db.User.First(z => z.Id == _db.Role.First(x => x.UserInOrg.Id == useringorgid && x.Type == RollType).UserInOrg.UserId) ,Org=_db.ORG.First(z=>z.Id==OrgId),LogInRegistry=_db.LogInRegistry.Where(z=>z.UserInOrg.Id==useringorgid).ToList(),});
-                }
-                 
-            }
-
-          
-
             
+            List<UsersBaesdRoles> lu = new List<UsersBaesdRoles>();
+            foreach (UserInOrg useringorg in  _db.UserInOrg.Where(x => x.OrgId == OrgId).ToList())
+            {
+                UsersBaesdRoles u = new UsersBaesdRoles();
+    
 
-        
+                if (_db.Role.FirstOrDefault(x => x.UserInOrg.OrgId == useringorg.OrgId&&x.UserInOrg.UserId==useringorg.UserId&&x.Type==RollType) != null)
+                {
+                  
+                    u.User = _db.User.FirstOrDefault(x => x.Id == useringorg.UserId);
+                foreach(LogInRegistry l in  _db.LogInRegistry.Where(z => z.UserInOrg.Id == useringorg.Id).ToList())
+                    {
+                        u.LogInRegistry.Add(l);
+                    }
+                    _db.WorkTitelPointer.Where(x => x.UserInOrg.Id == useringorg.Id).ToList().ForEach(x => u.WorkTitels.Add(x.WorkTitel));
+                  
+                }
+                lu.Add(u);
+            }    
             return lu;
         }
-        public List<UsersBaesdRoles> SearchAllUsersBasedJobb(int WorkTitelId, int OrgId, UserDB _db)
+        public List<UsersBaesdRoles> SearchAllUsersBasedJobb(String RoleType, UserDB _db)
         {
             List<UsersBaesdRoles> lu = new List<UsersBaesdRoles>();
-
-            foreach (WorkTitelPointer pointer in _db.WorkTitelPointer.Where(x => x.WorkTitelId == WorkTitelId && x.UserInOrg.OrgId == OrgId).ToList())
+           
+            foreach ( UserInOrg userinorg in _db.Role.Where(x => x.Type == RoleType).Select(x => x.UserInOrg).ToList())
             {
-                var u = new UsersBaedWorks();
-                u.User = _db.User.First(x => x.Id == pointer.UserInOrg.UserId);
-                u.Org = _db.ORG.First(x => x.Id == OrgId);
-                u.Role = _db.Role.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
-                u.LogInRegistry = _db.LogInRegistry.Where(x => x.UserInOrg.OrgId == OrgId && x.UserInOrg.UserId == u.User.Id).ToList();
+                UsersBaesdRoles u = new UsersBaesdRoles();
+                
+                u.Org = _db.ORG.First(x => x.Id == userinorg.OrgId);
+                u.User = _db.User.First(x => x.Id == userinorg.UserId);
+                _db.WorkTitelPointer.Where(x => x.userInOrgId == userinorg.Id).ToList().ForEach(x => u.WorkTitels.Add(x.WorkTitel));
+                
+               
+               
+                foreach(LogInRegistry l in  _db.LogInRegistry.Where(z => z.UserInOrg.Id == userinorg.Id).ToList())
+                {
+                    u.LogInRegistry.Add(l);
+                }
+               
                 lu.Add(u);
             }
             return lu;

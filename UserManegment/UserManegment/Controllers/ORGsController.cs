@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using UserManegment.Models;
 using UserManegment.Security;
-
-
 namespace UserManegment.Controllers
 {
-    public class UserMangementController : ApiController
+    public class ORGsController : ApiController
     {
         private UserDB db = new UserDB();
 
-        public IHttpActionResult GetAllUsers(int OrgId)
+        // GET: api/ORGs
+        public IHttpActionResult GetORG(int orgid)
         {
-            return Ok();
+            SearchOrgAllUsersDetails s = new SearchOrgAllUsersDetails();
+            return Ok(s.SearchAllUsersDetails(orgid,db));
         }
-        public IHttpActionResult GetAllUsers()
-        {
-            return Ok(db.User.ToList());
-        }
+
+
 
         protected override void Dispose(bool disposing)
         {
@@ -32,6 +32,11 @@ namespace UserManegment.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool ORGExists(int id)
+        {
+            return db.ORG.Count(e => e.Id == id) > 0;
         }
     }
 }
