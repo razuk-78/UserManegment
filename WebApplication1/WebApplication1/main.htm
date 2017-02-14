@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/ngrout.js"></script>
+</head>
+
+
+<body ng-app="myApp">
+    {{11}}
+    <p><a ng-href="#/">Main</a></p>
+
+    <a ng-href="#/red">Red</a>
+    <a ng-href="#/green">Green</a>
+    <a ng-href="#/blue">Blue</a>
+
+    <ng-view></ng-view>
+
+    <script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "main.htm"
+    })
+    .when("/red", {
+        templateUrl : "red.htm"
+    })
+    .when("/green", {
+        templateUrl : "green.htm"
+    })
+    .when("/blue", {
+        templateUrl : "blue.html"
+    });
+});
+    </script>
+
+    <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
+</body>
+</html>
