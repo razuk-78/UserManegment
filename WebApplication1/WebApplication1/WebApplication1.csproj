@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HtmlPage1.html" />
     <Content Include="scripts\angular.js" />
   </ItemGroup>
   <ItemGroup>

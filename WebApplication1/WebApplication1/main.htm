@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿
 <html>
 <head>
   
@@ -18,16 +18,17 @@
     <ng-view></ng-view>
 
     <script>
-var app = angular.module("myApp",[]);
-//app.config(function($routeProvider) {
-//    $routeProvider
-//    .when('/m', {
-//        templateUrl :'main.htm'
-//    })
-//    .when('/red', {
-//        template :'jhdgjahgsdjhagdshj'
-//    })
-//});
+var app = angular.module("myApp",['ngRoute']);
+app.config(function ($routeProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
+    $routeProvider
+    .when('/m', {
+        templateUrl :'main.htm'
+    })
+    .when('/red', {
+        templateUrl :'red.htm'
+    })
+});
     </script>
 
     <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>

@@ -4,7 +4,7 @@
  * License: MIT
  */
 (function (window, angular) {
-    'use strict';
+    //'use strict';
 
     /* global shallowCopy: true */
 
