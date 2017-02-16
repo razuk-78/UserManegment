@@ -1,36 +1,57 @@
 ﻿
 <html>
 <head>
-  
     <script src="scripts/angular.js"></script>
     <script src="scripts/ngrout.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
 
 <body ng-app="myApp">
     {{11}}
-    <p><a ng-href='/'>Main</a></p>
+  <div id="cont">
 
-    <a target="_self" href='#/red'>Red</a>
-    <a ng-href="#/green">Green</a>
-    <a ng-href="#/blue">Blue</a>
+  </div>
+    <br /><br /><br /><br />
+  <div id="a"></div>
+    <script>
 
+        var ob =[{ id: 1, ch: [2, 3, 4], p: 0 }, { id: 2, ch: [13, 14], p: 1 }, { id: 3, ch: [40], p: 1 }, { id: 4, ch: [16, 15], p: 1 }, { id: 13, ch: [130], p: 2 }, { id: 14, ch: [140], p: 2 }, { id: 40, ch: [], p: 3 }, { id: 15, ch: [], p: 4 }, { id: 16, ch: [], p: 4 }, { id: 130, ch: [], p: 13 }, { id: 140, ch: [], p: 14 }];
+        var m;
+        
+        for (var i = 0; i < ob.length; i++) {
+            m +='<ul data-id='+ ob[i].id +'data-p='+ob[i].p+'>';
+            for (var ii = 0; ii < ob[i].ch.length; ii++) {
+            m+='<li data-id='+ob[i].ch[ii]+'>'+ob[i].ch[ii]+'</li>';
+            }
+            m+='</ul>'
+        }
+        $('#cont').html(m);
+        $('ul[data-id]').each(function () {
+            
+            $(this).children('li').each(function () {
+                var i = $(this).attr('data-id');
+                $(this).append($('ul[data-p="'+i+'"]').html('aa'));
+            });
+        });
+     
+    </script>
     <ng-view></ng-view>
 
     <script>
-var app = angular.module("myApp",['ngRoute']);
-app.config(function ($routeProvider, $locationProvider) {
-    $locationProvider.hashPrefix('');
-    $routeProvider
-    .when('/m', {
-        templateUrl :'main.htm'
-    })
-    .when('/red', {
-        templateUrl :'red.htm'
-    })
-});
-    </script>
+           var app = angular.module("myApp",['ngRoute']);
+           app.config(function ($routeProvider, $locationProvider) {
+           $locationProvider.hashPrefix('');
+           $routeProvider
+          .when('/m', {
+          templateUrl :'main.htm'
+          })
+            .when('/red', {
+            templateUrl :'red.htm'
+           })
+         });
+ </script>
 
-    <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
+  <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
 </body>
 </html>
