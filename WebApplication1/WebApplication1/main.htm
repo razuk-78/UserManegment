@@ -7,35 +7,15 @@
 </head>
 
 
-<body ng-app="myApp">
+<body ng-app="myApp"ng-controller="ctrl">
     {{11}}
   <div id="cont">
-
+      
+      
   </div>
-    <br /><br /><br /><br />
+   ------------------------
   <div id="a"></div>
-    <script>
-
-        var ob =[{ id: 1, ch: [2, 3, 4], p: 0 }, { id: 2, ch: [13, 14], p: 1 }, { id: 3, ch: [40], p: 1 }, { id: 4, ch: [16, 15], p: 1 }, { id: 13, ch: [130], p: 2 }, { id: 14, ch: [140], p: 2 }, { id: 40, ch: [], p: 3 }, { id: 15, ch: [], p: 4 }, { id: 16, ch: [], p: 4 }, { id: 130, ch: [], p: 13 }, { id: 140, ch: [], p: 14 }];
-        var m;
-        
-        for (var i = 0; i < ob.length; i++) {
-            m +='<ul data-id='+ ob[i].id +'data-p='+ob[i].p+'>';
-            for (var ii = 0; ii < ob[i].ch.length; ii++) {
-            m+='<li data-id='+ob[i].ch[ii]+'>'+ob[i].ch[ii]+'</li>';
-            }
-            m+='</ul>'
-        }
-        $('#cont').html(m);
-        $('ul[data-id]').each(function () {
-            
-            $(this).children('li').each(function () {
-                var i = $(this).attr('data-id');
-                $(this).append($('ul[data-p="'+i+'"]').html('aa'));
-            });
-        });
-     
-    </script>
+  
     <ng-view></ng-view>
 
     <script>
@@ -49,7 +29,23 @@
             .when('/red', {
             templateUrl :'red.htm'
            })
-         });
+           });
+
+           app.controller('ctrl', function ($scope) {
+               var ob = [{ id: 1, ch: [2, 3, 4], p: 0 }, { id: 2, ch: [13, 14], p: 1 }, { id: 3, ch: [40], p: 1 }, { id: 4, ch: [16, 15], p: 1 }, { id: 13, ch: [130], p: 2 }, { id: 14, ch: [140], p: 2 }, { id: 40, ch: [], p: 3 }, { id: 15, ch: [], p: 4 }, { id: 16, ch: [], p: 4 }, { id: 130, ch: [], p: 13 }, { id: 140, ch: [], p: 14 }, { id: 111, ch: [666, 333, 444], p: 0 }];
+               var m;
+               for (var i = 0; i < ob.length; i++) {
+                   m += '<ul data-id=' + ob[i].id + ' data-p=' + ob[i].p + '><li>' + ob[i].id;
+                   for (var ii = 0; ii < ob[i].ch.length; ii++) {
+                       m += '<ul><li data-id=' + ob[i].ch[ii] + '>' + ob[i].ch[ii] + '<select><option>a</option></select></li></ul>';
+                   }
+                   m += '</li></ul>';
+               }
+               $('#cont').html(m);
+               $('#cont >ul').each(function () { $(this).appendTo($('#cont ul >li[data-id=' + $(this).attr('data-p') + ']')); });
+               $('#cont >ul').hide(); $('#cont >ul[data-p=0]').show();
+
+           });
  </script>
 
   <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
