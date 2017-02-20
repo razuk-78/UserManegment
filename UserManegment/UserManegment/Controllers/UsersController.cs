@@ -11,8 +11,11 @@ using System.Web.Http.Description;
 using UserManegment.Models;
 using UserManegment.Security;
 using System.Web.Script.Serialization;
+using System.Web.Http.Cors;
+
 namespace UserManegment.Controllers
 {
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
         private UserDB db = new UserDB();
