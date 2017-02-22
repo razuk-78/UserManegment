@@ -4,19 +4,21 @@
     <script src="scripts/angular.js"></script>
     <script src="scripts/ngrout.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+        
+    </script>
 </head>
 
 
 <body ng-app="myApp"ng-controller="ctrl">
     {{11}}
-  <div id="cont">
-      
-      
-  </div>
+
    ------------------------
   <div id="a"></div>
-  
-    <ng-view></ng-view>
+
+   
+    <tree obj="obj" send="send" id="gg"></tree>
 
     <script>
            var app = angular.module("myApp",['ngRoute']);
@@ -32,22 +34,80 @@
            });
 
            app.controller('ctrl', function ($scope) {
-               var ob = [{ id: 1, ch: [2, 3, 4], p: 0 }, { id: 2, ch: [13, 14], p: 1 }, { id: 3, ch: [40], p: 1 }, { id: 4, ch: [16, 15], p: 1 }, { id: 13, ch: [130], p: 2 }, { id: 14, ch: [140], p: 2 }, { id: 40, ch: [], p: 3 }, { id: 15, ch: [], p: 4 }, { id: 16, ch: [], p: 4 }, { id: 130, ch: [], p: 13 }, { id: 140, ch: [], p: 14 }, { id: 111, ch: [666, 333, 444], p: 0 }];
-               var m;
-               for (var i = 0; i < ob.length; i++) {
-                   m += '<ul data-id=' + ob[i].id + ' data-p=' + ob[i].p + '><li>' + ob[i].id;
-                   for (var ii = 0; ii < ob[i].ch.length; ii++) {
-                       m += '<ul><li data-id=' + ob[i].ch[ii] + '>' + ob[i].ch[ii] + '<select><option>a</option></select></li></ul>';
-                   }
-                   m += '</li></ul>';
-               }
-               $('#cont').html(m);
-               $('#cont >ul').each(function () { $(this).appendTo($('#cont ul >li[data-id=' + $(this).attr('data-p') + ']')); });
-               $('#cont >ul').hide(); $('#cont >ul[data-p=0]').show();
+               $scope.obj = [{ id: 1, ch: [2, 3, 4], p: 0 }, { id: 2, ch: [13, 14], p: 1 }, { id: 3, ch: [40], p: 1 }, { id: 4, ch: [16, 15], p: 1 }, { id: 13, ch: [130], p: 2 }, { id: 14, ch: [140], p: 2 }, { id: 40, ch: [], p: 3 }, { id: 15, ch: [], p: 4 }, { id: 16, ch: [], p: 4 }, { id: 130, ch: [], p: 13 }, { id: 140, ch: [222], p: 14 }, { id: 111, ch: [666, 333, 444], p: 0 }, { id: 222, ch: [], p: 140 }];
+             
+               
 
+           });
+           app.directive('tree', function ($compile) {
+
+               return {
+                   
+                   scope: { obj: '=' },
+                   templateUrl:'view/tree.html',
+
+                   link: function (s, el, attr) {
+                       var m;
+                   
+                       s.snd = function (m) { alert() };
+                         
+                   
+                       $.each(s.obj, function (index, value) {
+                           var m = $('ul[data-id=0]').clone();
+                           m.attr('data-id', value.id);
+                           m.attr('data-p', value.p);
+                           m.children('li').attr('data-id', value.id);
+                          m.children('li').addClass('glyphicon glyphicon-minus');
+                        
+                           m.children('li').append(value.id);
+                           
+                          
+                           $('#cont').append(m);
+
+                       });
+                       $('#cont >ul >li ').on('click', 'span', function (e) {
+                           
+                           $('#prop').css('top', e.pageY).css('left', e.pageX).css('display','block');
+                          
+                           alert('hey'); return false;
+                       });
+                       $('#cont >ul ').on('click', 'li', function () {
+                           
+                           
+                           if ($(this).children('ul').css('display') !== "none" && $(this).children('ul').length>0)
+                           {
+                               $(this).removeClass('glyphicon glyphicon-minus');
+                               $(this).addClass('glyphicon glyphicon-plus');
+                               $(this).children('ul').css('display', 'none');
+                              
+                           } else {
+                               $(this).children('ul').css('display', 'block');
+                               $(this).removeClass('glyphicon glyphicon-plus');
+                               $(this).addClass('glyphicon glyphicon-minus');
+                              
+                           }
+                          
+                          
+                           return false;
+                       });
+                       $('#cont >ul').each(function () {
+                           $(this).appendTo($('li[data-id=' + $(this).attr('data-p') + ']'));
+                       });
+                       $('#cont >ul').each(function () { console.log($(this).html()); $(this).children('ul').css('display', 'none'); });
+
+                      
+                      
+                   },
+                  
+
+               };
            });
  </script>
 
-  <p>Click on the links to navigate to "red.htm", "green.htm", "blue.htm", or back to "main.htm"</p>
+
+
+
+
+    
 </body>
 </html>
