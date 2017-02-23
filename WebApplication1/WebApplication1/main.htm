@@ -49,7 +49,7 @@
                    link: function (s, el, attr) {
                        var m;
                    
-                       s.snd = function (m) { alert() };
+                       s.snd = function (m) {  };
                          
                    
                        $.each(s.obj, function (index, value) {
@@ -65,12 +65,14 @@
                            $('#cont').append(m);
 
                        });
+                       //show pop massege
                        $('#cont >ul >li ').on('click', 'span', function (e) {
                            
-                           $('#prop').css('top', e.pageY).css('left', e.pageX).css('display','block');
+                           $('#myModal').modal('show')
                           
-                           alert('hey'); return false;
+                            return false;
                        });
+                             //show hide tree
                        $('#cont >ul ').on('click', 'li', function () {
                            
                            

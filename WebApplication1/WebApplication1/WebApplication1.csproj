@@ -114,6 +114,10 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="view\department\" />
+    <Folder Include="view\Org\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
